@@ -1,0 +1,31 @@
+namespace CreatorLib
+{
+    struct XYZ
+    {
+        Single X;
+		Single Y;
+		Single Z;
+    };
+
+    [default_interface]
+    runtimeclass IccWriter
+    {
+        IccWriter();
+        Windows.Foundation.IAsyncAction CommitToFileAsync(Windows.Storage.StorageFile file);
+
+        // Header descriptive tags
+        String profileDescription;
+        String profileCopyright;
+
+        // Basic profile colorimetry
+        XYZ whitePoint;
+        XYZ redPrimary;
+        XYZ greenPrimary;
+        XYZ bluePrimary;
+        Single fullFrameLuminance;
+
+        // MHC2 colorimetry
+        Single minLuminance;
+        Single peakLuminance;
+    }
+}
