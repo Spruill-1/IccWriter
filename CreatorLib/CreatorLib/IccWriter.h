@@ -53,19 +53,12 @@ namespace winrt::CreatorLib::implementation
         void peakLuminance(float value);
 
     private:
-        // Modifiable properties
-        hstring m_profileDescription = L"";
-		hstring m_profileCopyright = L"";
-        CreatorLib::XYZ m_whitePoint = {};
-		CreatorLib::XYZ m_redPrimary = {};
-		CreatorLib::XYZ m_greenPrimary = {};
-		CreatorLib::XYZ m_bluePrimary = {};
-		float m_fullFrameLuminance = 0;
-		float m_minLuminance = 0;
-		float m_peakLuminance = 0;
-
         // Profile
         unique_hprofile m_hProfile = nullptr;
+
+        // Helpers
+        std::vector<uint8_t> GetTagData(uint32_t tagSignature);
+        void SetTagData(uint32_t tagSignature, std::vector<uint8_t>& data);
     };
 }
 namespace winrt::CreatorLib::factory_implementation
