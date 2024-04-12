@@ -17,21 +17,15 @@ int main(int argc, char* argv[])
     auto iccWriter = winrt::IccWriter();
 
     // Get the current whitepoint
-    auto whitePoint = iccWriter.whitePoint();
+    auto whitePoint = iccWriter.WhitePoint();
     printf("White point: (%f, %f, %f)\n", whitePoint.x, whitePoint.y, whitePoint.z);
 
-    // Modify the whitepoint (these are D65-relative coordinates, the chromatic adaptation to D50 is done automatically)
-    iccWriter.whitePoint({ 0.33f, 0.33f, 0.33f });
-
-    // Modify the CSC matrix to turn the display horrendously pink
-    // This is actually a 3x3 matrix, we're just using a 4x4 one for convenience
-    // remember that this is a XYZ-XYZ matrix, not RGB-RGB.
-    iccWriter.cscMatrix({
-		    1.0f, 0.5f, 0.0f, 0.0f,
-		    0.0f, 0.1f, 0.0f, 0.0f,
-		    0.0f, 0.0f, 0.1f, 0.0f,
-            0.0f, 0.0f, 0.0f, 1.0f
-	    });
+    auto luts = iccWriter.ReGammaLuts();
+    printf("ReGamma LUTs: %d\n", luts.size());
+    for (size_t i = 0; i < luts.size(); i++)
+    {
+        printf("\t%f, %f, %f\n", luts[i].x, luts[i].y, luts[i].z);
+    }
 
     // Create a StorageFile to save the output with
     winrt::StorageFolder folder = winrt::StorageFolder::GetFolderFromPathAsync(std::filesystem::current_path().c_str()).get();

@@ -135,7 +135,7 @@ namespace winrt::CreatorLib::implementation
 
         co_return;
     }
-    hstring IccWriter::profileDescription()
+    hstring IccWriter::ProfileDescription()
     {
         std::scoped_lock lock(m_lock);
 
@@ -145,7 +145,7 @@ namespace winrt::CreatorLib::implementation
 
         return hstring(descriptionString);
     }
-    void IccWriter::profileDescription(hstring const& value)
+    void IccWriter::ProfileDescription(hstring const& value)
     {
         std::scoped_lock lock(m_lock);
 
@@ -175,7 +175,7 @@ namespace winrt::CreatorLib::implementation
         SetTagData('desc', std::vector<uint8_t>(descriptionString.begin(), descriptionString.end()));
     }
 
-    hstring IccWriter::profileCopyright()
+    hstring IccWriter::ProfileCopyright()
     {
         std::scoped_lock lock(m_lock);
 
@@ -185,7 +185,7 @@ namespace winrt::CreatorLib::implementation
 
         return hstring(cprtString);
     }
-    void IccWriter::profileCopyright(hstring const& value)
+    void IccWriter::ProfileCopyright(hstring const& value)
     {
         std::scoped_lock lock(m_lock);
 
@@ -201,7 +201,7 @@ namespace winrt::CreatorLib::implementation
 
 		SetTagData('cprt', std::vector<uint8_t>(cprtString.begin(), cprtString.end()));
     }
-    winrt::float3 IccWriter::whitePoint()
+    winrt::float3 IccWriter::WhitePoint()
     {
         std::scoped_lock lock(m_lock);
 
@@ -210,65 +210,65 @@ namespace winrt::CreatorLib::implementation
         // Chromatic Adaptation
         return RemoveChad(XYZToFloat3(xyz));
     }
-    void IccWriter::whitePoint(winrt::float3 const& value)
+    void IccWriter::WhitePoint(winrt::float3 const& value)
     {
         std::scoped_lock lock(m_lock);
 
         SetTagData('wtpt', Float3ToXYZ(AddChad(value)));
     }
-    winrt::float3 IccWriter::redPrimary()
+    winrt::float3 IccWriter::RedPrimary()
     {
         std::scoped_lock lock(m_lock);
 
         auto xyz = GetTagData('rXYZ');
         return RemoveChad(XYZToFloat3(xyz));
     }
-    void IccWriter::redPrimary(winrt::float3 const& value)
+    void IccWriter::RedPrimary(winrt::float3 const& value)
     {
         std::scoped_lock lock(m_lock);
 
         SetTagData('rXYZ', Float3ToXYZ(AddChad(value)));
     }
-    winrt::float3 IccWriter::greenPrimary()
+    winrt::float3 IccWriter::GreenPrimary()
     {
         std::scoped_lock lock(m_lock);
 
         auto xyz = GetTagData('gXYZ');
         return RemoveChad(XYZToFloat3(xyz));
     }
-    void IccWriter::greenPrimary(winrt::float3 const& value)
+    void IccWriter::GreenPrimary(winrt::float3 const& value)
     {
         std::scoped_lock lock(m_lock);
 
         SetTagData('gXYZ', Float3ToXYZ(AddChad(value)));
     }
-    winrt::float3 IccWriter::bluePrimary()
+    winrt::float3 IccWriter::BluePrimary()
     {
         std::scoped_lock lock(m_lock);
 
         auto xyz = GetTagData('bXYZ');
         return RemoveChad(XYZToFloat3(xyz));
     }
-    void IccWriter::bluePrimary(winrt::float3 const& value)
+    void IccWriter::BluePrimary(winrt::float3 const& value)
     {
         std::scoped_lock lock(m_lock);
 
         SetTagData('bXYZ', Float3ToXYZ(AddChad(value)));
     }
-    float IccWriter::fullFrameLuminance()
+    float IccWriter::FullFrameLuminance()
     {
         std::scoped_lock lock(m_lock);
 
         auto xyz = GetTagData('lumi');
         return XYZToFloat3(xyz).y;
     }
-    void IccWriter::fullFrameLuminance(float value)
+    void IccWriter::FullFrameLuminance(float value)
     {
         std::scoped_lock lock(m_lock);
 
         SetTagData('lumi', Float3ToXYZ(float3(0,value,0)));
     }
-    float IccWriter::minLuminance()
+    float IccWriter::MinLuminance()
     {
         std::scoped_lock lock(m_lock);
 
@@ -276,7 +276,7 @@ namespace winrt::CreatorLib::implementation
         uint32_t minLuminance = *reinterpret_cast<uint32_t*>(mhc2.data() + 12);
         return S15Fixed16NumberToFloat(minLuminance);
     }
-    void IccWriter::minLuminance(float value)
+    void IccWriter::MinLuminance(float value)
     {
         std::scoped_lock lock(m_lock);
 
@@ -286,7 +286,7 @@ namespace winrt::CreatorLib::implementation
 
         SetTagData('MHC2', mhc2);
     }
-    float IccWriter::peakLuminance()
+    float IccWriter::PeakLuminance()
     {
         std::scoped_lock lock(m_lock);
 
@@ -294,7 +294,7 @@ namespace winrt::CreatorLib::implementation
         uint32_t maxLuminance = *reinterpret_cast<uint32_t*>(mhc2.data() + 16);
         return S15Fixed16NumberToFloat(maxLuminance);
     }
-    void IccWriter::peakLuminance(float value)
+    void IccWriter::PeakLuminance(float value)
     {
         std::scoped_lock lock(m_lock);
 
@@ -304,7 +304,7 @@ namespace winrt::CreatorLib::implementation
 
         SetTagData('MHC2', mhc2);
     }
-    winrt::float4x4 IccWriter::cscMatrix()
+    winrt::float4x4 IccWriter::CscMatrix()
     {
         std::scoped_lock lock(m_lock);
 
@@ -317,7 +317,7 @@ namespace winrt::CreatorLib::implementation
 			S15Fixed16NumberToFloat(matrix[8]), S15Fixed16NumberToFloat(matrix[9]), S15Fixed16NumberToFloat(matrix[10]), 0,
 			0, 0, 0, 1);
     }
-    void IccWriter::cscMatrix(winrt::float4x4 value)
+    void IccWriter::CscMatrix(winrt::float4x4 value)
     {
         std::scoped_lock lock(m_lock);
 
@@ -336,6 +336,87 @@ namespace winrt::CreatorLib::implementation
         matrix[10] = FloatToS15Fixed16Number(value.m33);
 
         SetTagData('MHC2', mhc2);
+    }
+    com_array<winrt::float3> IccWriter::ReGammaLuts()
+    {
+        std::scoped_lock lock(m_lock);
+        std::vector<winrt::float3> luts;
+
+        auto mhc2 = GetTagData('MHC2');
+        uint32_t lutSize = FixEndian(*reinterpret_cast<uint32_t*>(mhc2.data() + 8));
+
+        luts.insert(luts.end(), lutSize, winrt::float3(0, 0, 0));
+
+        const uint32_t redOffset   = 0x54 + 8;
+        const uint32_t greenOffset = redOffset   + 8 + (lutSize * 4);
+        const uint32_t blueOffset  = greenOffset + 8 + (lutSize * 4);
+
+        // Read the first Lut (red)
+        for (auto i = 0; i < lutSize; i++)
+		{
+			uint32_t value = *reinterpret_cast<uint32_t*>(mhc2.data() + i * 4 + redOffset);
+			luts[i].x = S15Fixed16NumberToFloat(value);
+		}
+
+        // Read the second Lut (green)
+        for (auto i = 0; i < lutSize; i++)
+        {
+            uint32_t value = *reinterpret_cast<uint32_t*>(mhc2.data() + i * 4 + greenOffset);
+            luts[i].y = S15Fixed16NumberToFloat(value);
+        }
+
+        // Read the third Lut (blue)
+        for (auto i = 0; i < lutSize; i++)
+        {
+            uint32_t value = *reinterpret_cast<uint32_t*>(mhc2.data() + i * 4 + blueOffset);
+            luts[i].z = S15Fixed16NumberToFloat(value);
+        }
+
+        return com_array<winrt::float3>(luts.begin(), luts.end());
+    }
+    void IccWriter::ReGammaLuts(array_view<winrt::float3 const> value)
+    {
+        std::scoped_lock lock(m_lock);
+
+        auto mhc2 = GetTagData('MHC2');
+
+        // Ensure that the buffer is big enough
+        uint32_t redLutOffset = 0x54;
+        uint32_t greenLutOffset = redLutOffset + 8 + (value.size() * 4);
+        uint32_t blueLutOffset = greenLutOffset + 8 + (value.size() * 4);
+        uint32_t expand = max(mhc2.size(), blueLutOffset + 8 + (value.size() * 4)) - mhc2.size();
+        mhc2.insert(mhc2.end(), expand, 0);
+
+        uint32_t* lutSize = reinterpret_cast<uint32_t*>(mhc2.data() + 8);
+        *lutSize = FixEndian(static_cast<uint32_t>(value.size()));
+
+        uint32_t* redOffset = reinterpret_cast<uint32_t*>(mhc2.data() + 24);
+        uint32_t* greenOffset = reinterpret_cast<uint32_t*>(mhc2.data() + 28);
+        uint32_t* blueOffset = reinterpret_cast<uint32_t*>(mhc2.data() + 32);
+
+        *redOffset   = FixEndian(redLutOffset);
+        *greenOffset = FixEndian(greenLutOffset);
+        *blueOffset  = FixEndian(blueLutOffset);
+
+        uint32_t* redLut = reinterpret_cast<uint32_t*>(mhc2.data() + redLutOffset);
+        uint32_t* greenLut = reinterpret_cast<uint32_t*>(mhc2.data() + greenLutOffset);
+        uint32_t* blueLut = reinterpret_cast<uint32_t*>(mhc2.data() + blueLutOffset);
+
+        redLut[0] = FixEndian('sf32');
+        redLut[1] = 0;
+        greenLut[0] = FixEndian('sf32');
+        greenLut[1] = 0;
+        blueLut[0] = FixEndian('sf32');
+        blueLut[1] = 0;
+
+		for (auto i = 2; i < value.size() + 2; i++)
+		{
+            redLut[i] = FloatToS15Fixed16Number(value[i - 2].x);
+            greenLut[i] = FloatToS15Fixed16Number(value[i - 2].y);
+            blueLut[i] = FloatToS15Fixed16Number(value[i - 2].z);
+		}
+
+		SetTagData('MHC2', mhc2);
     }
 
     // Private profile interaction functions

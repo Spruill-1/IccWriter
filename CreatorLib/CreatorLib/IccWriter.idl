@@ -7,21 +7,24 @@ namespace CreatorLib
         Windows.Foundation.IAsyncAction CommitToFileAsync(Windows.Storage.StorageFile file);
 
         // Header descriptive tags
-        String profileDescription;
-        String profileCopyright;
+        String ProfileDescription;
+        String ProfileCopyright;
 
         // Basic profile colorimetry
-        Windows.Foundation.Numerics.Vector3 whitePoint;
-        Windows.Foundation.Numerics.Vector3 redPrimary;
-        Windows.Foundation.Numerics.Vector3 greenPrimary;
-        Windows.Foundation.Numerics.Vector3 bluePrimary;
-        Single fullFrameLuminance;
+        Windows.Foundation.Numerics.Vector3 WhitePoint;
+        Windows.Foundation.Numerics.Vector3 RedPrimary;
+        Windows.Foundation.Numerics.Vector3 GreenPrimary;
+        Windows.Foundation.Numerics.Vector3 BluePrimary;
+        Single FullFrameLuminance;
 
         // MHC2 colorimetry
-        Single minLuminance;
-        Single peakLuminance;
+        Single MinLuminance;
+        Single PeakLuminance;
 
         // CSC matrix (note that this is actually a 3x3 matrix, but we use a 4x4 matrix to use built-in matrix multiplication)
-        Windows.Foundation.Numerics.Matrix4x4 cscMatrix;
+        Windows.Foundation.Numerics.Matrix4x4 CscMatrix;
+
+        // MHC2 Re-Gamma LUTS
+        Windows.Foundation.Numerics.Vector3[] ReGammaLuts;
     }
 }
