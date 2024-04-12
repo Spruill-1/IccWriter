@@ -1,12 +1,5 @@
 namespace CreatorLib
 {
-    struct XYZ
-    {
-        Single X;
-		Single Y;
-		Single Z;
-    };
-
     [default_interface]
     runtimeclass IccWriter
     {
@@ -18,14 +11,17 @@ namespace CreatorLib
         String profileCopyright;
 
         // Basic profile colorimetry
-        XYZ whitePoint;
-        XYZ redPrimary;
-        XYZ greenPrimary;
-        XYZ bluePrimary;
+        Windows.Foundation.Numerics.Vector3 whitePoint;
+        Windows.Foundation.Numerics.Vector3 redPrimary;
+        Windows.Foundation.Numerics.Vector3 greenPrimary;
+        Windows.Foundation.Numerics.Vector3 bluePrimary;
         Single fullFrameLuminance;
 
         // MHC2 colorimetry
         Single minLuminance;
         Single peakLuminance;
+
+        // CSC matrix (note that this is actually a 3x3 matrix, but we use a 4x4 matrix to use built-in matrix multiplication)
+        Windows.Foundation.Numerics.Matrix4x4 cscMatrix;
     }
 }
