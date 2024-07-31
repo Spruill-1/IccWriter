@@ -2,6 +2,8 @@
 
 #include "winrt\CreatorLib.h"
 
+#include "output.h"
+
 namespace winrt
 {
     using namespace Windows::Foundation;
@@ -26,6 +28,13 @@ int main(int argc, char* argv[])
     {
         printf("\t%f, %f, %f\n", luts[i].x, luts[i].y, luts[i].z);
     }
+
+    auto matrix = iccWriter.CscMatrix();
+    matrix.m11 = 0.5f;
+    matrix.m22 = 2.0f;
+    matrix.m33 = 2.0f;
+
+    iccWriter.CscMatrix(matrix);
 
     // Create a StorageFile to save the output with
     winrt::StorageFolder folder = winrt::StorageFolder::GetFolderFromPathAsync(std::filesystem::current_path().c_str()).get();
