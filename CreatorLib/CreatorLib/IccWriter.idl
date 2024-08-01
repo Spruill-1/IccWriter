@@ -27,4 +27,16 @@ namespace CreatorLib
         // MHC2 Re-Gamma LUTS
         Windows.Foundation.Numerics.Vector3[] ReGammaLuts;
     }
+
+    struct ColorMeasure
+    {
+        Windows.Foundation.Numerics.Vector3 scRGB; // These should be output values that a UI is outputting in an FP16 scRGB space to an HDR panel
+		Windows.Foundation.Numerics.Vector3 XYZ;   // These should be the measured values of the output corresponding to the above scRGB values
+	};
+
+    [default_interface]
+    runtimeclass ColorCalibrationGenerator
+    {
+        static Windows.Foundation.Numerics.Matrix4x4 ComputeMatrix(ColorMeasure[] measurements);
+    }
 }

@@ -12,10 +12,12 @@
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+    <ClCompile Include="ColorCalibrationGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="template.icm.h" />
+    <ClInclude Include="ColorCalibrationGenerator.h" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="IccWriter.idl" />
