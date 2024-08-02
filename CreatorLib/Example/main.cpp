@@ -34,13 +34,13 @@ int main(int argc, char* argv[])
     // points should be included - any affine transform (i.e. the matrix hardware) is going to impact _all_ points.
     std::array<winrt::ColorMeasure, 7> colorValues = {
         //                               scRGB output values                measured XYZ values
-		winrt::ColorMeasure{ winrt::float3(1.f, 0.f, 0.f), winrt::float3(33.773f, 15.785f,  1.532f) },    // Red
-		winrt::ColorMeasure{ winrt::float3(0.f, 1.f, 0.f), winrt::float3(26.677f, 53.389f,  8.418f) },  // Green
-		winrt::ColorMeasure{ winrt::float3(0.f, 0.f, 1.f), winrt::float3(14.425f,  6.090f, 76.085f) },  // Blue
-        winrt::ColorMeasure{ winrt::float3(1.f, 1.f, 1.f), winrt::float3(67.337f, 70.314f, 79.783f) },  // White
-        winrt::ColorMeasure{ winrt::float3(1.f, 1.f, 0.f), winrt::float3(59.669f, 58.607f,  5.246f) },  // Red-Green
-        winrt::ColorMeasure{ winrt::float3(0.f, 1.f, 1.f), winrt::float3(32.321f, 44.542f, 48.673f) },  // Green-Blue
-        winrt::ColorMeasure{ winrt::float3(1.f, 0.f, 1.f), winrt::float3(38.900f, 17.666f, 47.036f) }   // Red-Blue
+		winrt::ColorMeasure{ winrt::float3(1.f, 0.f, 0.f), winrt::float3( 68.761f,   33.375f,   2.499f) },  // Red
+		winrt::ColorMeasure{ winrt::float3(0.f, 1.f, 0.f), winrt::float3( 54.647f,  106.784f,  13.553f) },  // Green
+		winrt::ColorMeasure{ winrt::float3(0.f, 0.f, 1.f), winrt::float3( 38.798f,   15.266f, 205.280f) },  // Blue
+        winrt::ColorMeasure{ winrt::float3(1.f, 1.f, 1.f), winrt::float3(155.563f,  150.539f, 210.642f) },  // White
+        winrt::ColorMeasure{ winrt::float3(1.f, 1.f, 0.f), winrt::float3(127.191f,  144.404f,  16.150f) },  // Red-Green
+        winrt::ColorMeasure{ winrt::float3(0.f, 1.f, 1.f), winrt::float3( 94.112f,  123.849f, 218.484f) },  // Green-Blue
+        winrt::ColorMeasure{ winrt::float3(1.f, 0.f, 1.f), winrt::float3(109.677f,   49.537f, 209.878f) }   // Red-Blue
 	};
 
     auto matrix = winrt::ColorCalibrationGenerator::ComputeMatrix(colorValues);
