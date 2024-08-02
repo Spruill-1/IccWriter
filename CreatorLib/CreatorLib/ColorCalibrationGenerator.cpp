@@ -4,10 +4,10 @@
 
 // Using Eigen for more advanced matrix math here, the actual math used here is defined in this paper:
 // https://web.stanford.edu/class/cs273/refs/umeyama.pdf
+// Effectively this is computing the affine transform which minimizes error between two sets of points, 
+// in this case the application's output and the corresponding display measurements.
 #include <Eigen/Dense>
 #include <Eigen/Geometry>
-
-#include <iostream>
 
 namespace winrt
 {
@@ -18,12 +18,15 @@ namespace winrt::CreatorLib::implementation
 {
     winrt::float3 scRGBToXYZ(winrt::float3 scRGB)
     {
-        return 80.f*winrt::float3(
+        // scRGB is defined such that 1,1,1 = 80 nits, XYZ is defined such that Y = nits. The standard transform for rec709 primaries->XYZ leaves
+        // luminance unscaled, so 1,1,1 = 1 nit. So we include the scaling factor here.
+        return 80.f * winrt::float3(
             0.4124564f * scRGB.x + 0.3575761f * scRGB.y + 0.1804375f * scRGB.z,
             0.2126729f * scRGB.x + 0.7151522f * scRGB.y + 0.0721750f * scRGB.z,
             0.0193339f * scRGB.x + 0.1191920f * scRGB.y + 0.9503041f * scRGB.z);
     }
 
+    // The matrix we're computing here is specifically an XYZ->XYZ matrix, so we need to convert the scRGB values to XYZ first.
     winrt::float4x4 ColorCalibrationGenerator::ComputeMatrix(array_view<winrt::CreatorLib::ColorMeasure const> measurements)
     {
         auto applicationOutput = Eigen::MatrixXf(3, measurements.size());
@@ -37,6 +40,7 @@ namespace winrt::CreatorLib::implementation
             applicationOutput(0, index) = applicationOutputXYZ.x;
             applicationOutput(1, index) = applicationOutputXYZ.y;
             applicationOutput(2, index) = applicationOutputXYZ.z;
+
             displayMeasures(0, index) = measure.XYZ.x;
             displayMeasures(1, index) = measure.XYZ.y;
             displayMeasures(2, index) = measure.XYZ.z;

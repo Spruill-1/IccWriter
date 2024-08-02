@@ -30,7 +30,7 @@ int main(int argc, char* argv[])
     }
 
     std::array<winrt::ColorMeasure, 7> colorValues = {
-        //                               scRGB output values                                measured XYZ values
+        //                               scRGB output values                measured XYZ values
 		winrt::ColorMeasure{ winrt::float3(1.f, 0.f, 0.f), winrt::float3(34.335f, 15.406f,  1.260f) },  // Red
 		winrt::ColorMeasure{ winrt::float3(0.f, 1.f, 0.f), winrt::float3(23.503f, 41.313f,  5.623f) },  // Green
 		winrt::ColorMeasure{ winrt::float3(0.f, 0.f, 1.f), winrt::float3( 9.840f,  4.160f, 49.154f) },  // Blue
@@ -46,7 +46,7 @@ int main(int argc, char* argv[])
     // Create a StorageFile to save the output with
     winrt::StorageFolder folder = winrt::StorageFolder::GetFolderFromPathAsync(std::filesystem::current_path().c_str()).get();
 
-    winrt::hstring fileName = L"test6.icc";
+    winrt::hstring fileName = L"test.icc";
     if (argc > 1)
 	{
         fileName = winrt::to_hstring(argv[1]);
