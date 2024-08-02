@@ -29,12 +29,15 @@ int main(int argc, char* argv[])
         printf("\t%f, %f, %f\n", luts[i].x, luts[i].y, luts[i].z);
     }
 
+    // This is the set of output scRGB values and the corresponding measured XYZ values for a display. There is no real right answer to how
+    // many points/measurements should be included here, but more is generally better and you need a minimum of 3. Likewise, there is no real right answer as to which
+    // points should be included - any affine transform (i.e. the matrix hardware) is going to impact _all_ points.
     std::array<winrt::ColorMeasure, 7> colorValues = {
         //                               scRGB output values                measured XYZ values
-		winrt::ColorMeasure{ winrt::float3(1.f, 0.f, 0.f), winrt::float3(34.335f, 15.406f,  1.260f) },  // Red
-		winrt::ColorMeasure{ winrt::float3(0.f, 1.f, 0.f), winrt::float3(23.503f, 41.313f,  5.623f) },  // Green
-		winrt::ColorMeasure{ winrt::float3(0.f, 0.f, 1.f), winrt::float3( 9.840f,  4.160f, 49.154f) },  // Blue
-        winrt::ColorMeasure{ winrt::float3(1.f, 1.f, 1.f), winrt::float3(62.432f, 58.375f, 51.043f) },  // White
+		winrt::ColorMeasure{ winrt::float3(1.f, 0.f, 0.f), winrt::float3(33.773f, 15.785f,  1.532f) },    // Red
+		winrt::ColorMeasure{ winrt::float3(0.f, 1.f, 0.f), winrt::float3(26.677f, 53.389f,  8.418f) },  // Green
+		winrt::ColorMeasure{ winrt::float3(0.f, 0.f, 1.f), winrt::float3(14.425f,  6.090f, 76.085f) },  // Blue
+        winrt::ColorMeasure{ winrt::float3(1.f, 1.f, 1.f), winrt::float3(67.337f, 70.314f, 79.783f) },  // White
         winrt::ColorMeasure{ winrt::float3(1.f, 1.f, 0.f), winrt::float3(59.669f, 58.607f,  5.246f) },  // Red-Green
         winrt::ColorMeasure{ winrt::float3(0.f, 1.f, 1.f), winrt::float3(32.321f, 44.542f, 48.673f) },  // Green-Blue
         winrt::ColorMeasure{ winrt::float3(1.f, 0.f, 1.f), winrt::float3(38.900f, 17.666f, 47.036f) }   // Red-Blue
