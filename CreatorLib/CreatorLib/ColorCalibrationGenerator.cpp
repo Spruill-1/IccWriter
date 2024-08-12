@@ -20,7 +20,7 @@ namespace winrt::CreatorLib::implementation
     {
         // scRGB is defined such that 1,1,1 = 80 nits, XYZ is defined such that Y = nits. The standard transform for rec709 primaries->XYZ leaves
         // luminance unscaled, so 1,1,1 = 1 nit. So we include the scaling factor here.
-        return winrt::float3(
+        return 80 * winrt::float3(
             0.4124564f * scRGB.x + 0.3575761f * scRGB.y + 0.1804375f * scRGB.z,
             0.2126729f * scRGB.x + 0.7151522f * scRGB.y + 0.0721750f * scRGB.z,
             0.0193339f * scRGB.x + 0.1191920f * scRGB.y + 0.9503041f * scRGB.z);
@@ -49,7 +49,8 @@ namespace winrt::CreatorLib::implementation
 		}
 
         auto umeyama = Eigen::umeyama(displayMeasures, applicationOutput, true);
-        umeyama = umeyama.inverse();
+
+        umeyama.transposeInPlace();
 
         return float4x4(umeyama(0, 0), umeyama(0, 1), umeyama(0, 2), umeyama(0,3),
                         umeyama(1, 0), umeyama(1, 1), umeyama(1, 2), umeyama(1,3),
