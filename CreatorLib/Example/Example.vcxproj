@@ -101,6 +101,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\ConsoleApplication2\output.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
